@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Heart Disease Prediction</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='sty.css') }}">
+    <style>
+        .uploadimg {
+            background: url("{{ url_for('static', filename='back.jpg') }}") no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh;
+        }
+
+        .container {
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #343a40;
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 10px;
+        }
+
+        .prediction-result {
+            text-align: center;
+            margin-top: 20px;
+            color: #28a745;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="uploadimg">
+        <div class="container">
+            <h2 class="mt-5">Heart Disease Prediction</h2>
+            <form action="/" method="post">
+                <div class="form-group">
+                    <label for="age">Age: Age of the patient</label>
+                    <input type="number" class="form-control" id="age" name="age" required>
+                </div>
+                <div class="form-group">
+                    <label for="sex">Sex: Sex of the patient</label>
+                    <select class="form-control" id="sex" name="sex" required>
+                        <option value="1">Male</option>
+                        <option value="2">Female</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="cp">Chest Pain Type (cp):</label>
+                    <select class="form-control" id="cp" name="cp" required>
+                        <option value="1">Typical angina</option>
+                        <option value="2">Atypical angina</option>
+                        <option value="3">Non-anginal pain</option>
+                        <option value="4">Asymptomatic</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="trtbps">Resting Blood Pressure (trtbps): in mm Hg</label>
+                    <input type="number" step="0.1" class="form-control" id="trtbps" name="trtbps" required>
+                </div>
+                <div class="form-group">
+                    <label for="chol">Cholesterol (chol): in mg/dl fetched via BMI sensor</label>
+                    <input type="number" step="0.1" class="form-control" id="chol" name="chol" required>
+                </div>
+                <div class="form-group">
+                    <label for="fbs">Fasting Blood Sugar (fbs): (> 120 mg/dl) (1 = true; 0 = false)</label>
+                    <select class="form-control" id="fbs" name="fbs" required>
+                        <option value="1">True</option>
+                        <option value="0">False</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="restecg">Resting Electrocardiographic Results (restecg):</label>
+                    <select class="form-control" id="restecg" name="restecg" required>
+                        <option value="0">Normal</option>
+                        <option value="1">Having ST-T wave abnormality</option>
+                        <option value="2">Showing probable or definite left ventricular hypertrophy</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="exng">Exercise Induced Angina (exng): (1 = yes; 0 = no)</label>
+                    <select class="form-control" id="exng" name="exng" required>
+                        <option value="1">Yes</option>
+                        <option value="0">No</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="oldpeak">ST Depression Induced by Exercise Relative to Rest (oldpeak):</label>
+                    <input type="number" step="0.1" class="form-control" id="oldpeak" name="oldpeak" required>
+                </div>
+                <div class="form-group">
+                    <label for="slp">Slope of the Peak Exercise ST Segment (slp):</label>
+                    <select class="form-control" id="slp" name="slp" required>
+                        <option value="0">Upsloping</option>
+                        <option value="1">Flat</option>
+                        <option value="2">Downsloping</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="caa">Number of Major Vessels Colored by Fluoroscopy (caa): (0-3)</label>
+                    <input type="number" class="form-control" id="caa" name="caa" required>
+                </div>
+                <div class="form-group">
+                    <label for="thall">Thalassemia (thall):</label>
+                    <select class="form-control" id="thall" name="thall" required>
+                        <option value="0">Normal</option>
+                        <option value="1">Fixed defect</option>
+                        <option value="2">Reversable defect</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Predict</button>
+            </form>
+            <br>
+            {% if prediction_text %}
+            <h3 class="prediction-result">{{ prediction_text }}</h3>
+            {% endif %}
+        </div>
+    </div>
+    
+</body>
+
+</html>
